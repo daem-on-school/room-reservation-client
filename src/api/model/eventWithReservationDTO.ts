@@ -14,10 +14,10 @@ import { RoomDTO } from './roomDTO';
 
 export interface EventWithReservationDTO { 
     id?: number;
-    title?: string | null;
-    description?: string | null;
+    title?: string;
+    description?: string;
     start?: string;
     end?: string;
-    reservations?: Array<RoomDTO> | null;
+    reservations?: Array<RoomDTO>;
 }
 

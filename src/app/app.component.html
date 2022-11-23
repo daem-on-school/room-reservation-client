@@ -1,5 +1,7 @@
-<div>App component works!</div>
+<nav>
+	<h1>RoomReservation</h1>
+	<a routerLink="/home">Home</a>
+	<a routerLink="/login">Login</a>
+</nav>
 
-<div *ngFor="let event of events">
-	{{ event.title }}: {{ event.start }} - {{ event.end }}
-</div>
+<router-outlet></router-outlet>

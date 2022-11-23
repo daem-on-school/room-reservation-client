@@ -12,7 +12,7 @@
 
 
 export interface RoomDTO { 
-    name?: string | null;
-    keywords?: Array<string> | null;
+    name?: string;
+    keywords?: Array<string>;
 }
 

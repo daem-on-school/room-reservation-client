@@ -12,10 +12,10 @@
 
 
 export interface RegisterDTO { 
-    adminToken?: string | null;
-    username?: string | null;
-    password?: string | null;
-    email?: string | null;
-    role?: string | null;
+    adminToken?: string;
+    username?: string;
+    password?: string;
+    email?: string;
+    role?: string;
 }
 

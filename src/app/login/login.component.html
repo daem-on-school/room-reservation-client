@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+	<div class="field">
+		<label for="username">Username</label>
+		<input type="text" formControlName="username" id="username" placeholder="Username">
+	</div>
+	<div class="field">
+		<label for="password">Password</label>
+		<input type="password" formControlName="password" id="password" placeholder="Password">
+	</div>
+	<button type="button" [disabled]="form.invalid" (click)="login()">Login</button>
+</form>

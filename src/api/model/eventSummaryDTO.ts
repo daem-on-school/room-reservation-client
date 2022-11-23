@@ -13,8 +13,8 @@
 
 export interface EventSummaryDTO { 
     id?: number;
-    title?: string | null;
-    description?: string | null;
+    title?: string;
+    description?: string;
     start?: string;
     end?: string;
 }
