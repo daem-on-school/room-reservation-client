@@ -1,0 +1,49 @@
+input, textarea {
+	font-size: 22px;
+	font-family: inherit;
+
+	background-color: rgb(210, 205, 255);
+	color: rgb(21, 10, 119);
+	border-radius: 6px;
+	border: none;
+	padding: 0.5rem;
+
+	&::placeholder {
+		color: rgb(103, 96, 161);
+	}
+
+	&[type="checkbox"] {
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+}
+
+label {
+	font-size: 16px;
+	font-weight: 500;
+	color: rgb(114, 114, 114);
+}
+
+button {
+	font-size: 18px;
+	font-family: inherit;
+	font-weight: 500;
+	color: white;
+	background-color: rgb(21, 10, 119);
+	border-radius: 6px;
+	border: none;
+	padding: 0.5rem 1rem;
+	cursor: pointer;
+
+	&:hover {
+		background-color: rgb(48, 39, 133);
+	}
+
+	&:active {
+		background-color: rgb(20, 13, 82);
+	}
+
+	&:disabled {
+		background-color: rgb(114, 105, 189);
+	}
+}

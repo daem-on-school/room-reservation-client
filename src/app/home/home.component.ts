@@ -23,9 +23,17 @@ export class HomeComponent implements OnInit {
 
 	private convert(event: EventSummaryDTO): CalendarEvent {
 		return {
+			id: event.id!,
 			title: event.title!,
 			start: new Date(event.start!),
 			end: new Date(event.end!),
 		};
+	}
+
+	onEventClicked($ev: {
+        event: CalendarEvent;
+        sourceEvent: MouseEvent | KeyboardEvent;
+    }) {
+		window.location.href = `/event/${$ev.event.id}`;
 	}
 }

@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EventComponent } from './event/event.component';
 import { CreateEventComponent } from './create/event/event.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 
 export function apiConfigFactory (): Configuration {
@@ -38,6 +39,7 @@ export function apiConfigFactory (): Configuration {
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     AppRoutingModule,
     BrowserAnimationsModule,
+    NgxMaskModule.forRoot(),
   ],
   providers: [
     { provide: BASE_PATH, useValue: 'http://localhost:5025' },

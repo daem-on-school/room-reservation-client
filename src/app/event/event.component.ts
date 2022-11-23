@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { EventService, EventWithReservationDTO } from 'src/api';
 
 @Component({
@@ -24,6 +25,18 @@ export class EventComponent implements OnInit {
         .subscribe(event => {
           this.event = event;
         });
+    }
+  }
+
+  async delete(): Promise<void> {
+    if (this.event) {
+      const resp = await firstValueFrom(
+        this.eventService.eventIdDelete(this.event.id!, "response")
+      );
+
+      if (resp.status === 204) {
+        window.location.href = "/home";
+      }
     }
   }
 
