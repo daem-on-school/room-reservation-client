@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ApiModule, BASE_PATH, Configuration, ConfigurationParameters } from '../api';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,6 +14,8 @@ import { EventComponent } from './event/event.component';
 import { CreateEventComponent } from './create/event/event.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { AuthInterceptor, UserService } from './user.service';
+import { ReservationComponent } from './create/reservation/reservation.component';
 
 
 export function apiConfigFactory (): Configuration {
@@ -30,6 +32,7 @@ export function apiConfigFactory (): Configuration {
     LoginComponent,
     EventComponent,
     CreateEventComponent,
+    ReservationComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,10 +42,12 @@ export function apiConfigFactory (): Configuration {
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgxMaskModule.forRoot(),
+    NgxMaskModule.forRoot()
   ],
   providers: [
     { provide: BASE_PATH, useValue: 'http://localhost:5025' },
+    UserService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

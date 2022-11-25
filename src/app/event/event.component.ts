@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { EventService, EventWithReservationDTO } from 'src/api';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-event',
@@ -10,21 +11,27 @@ import { EventService, EventWithReservationDTO } from 'src/api';
 })
 export class EventComponent implements OnInit {
   event?: EventWithReservationDTO;
+  isOrganizer: boolean = false;
+  reservationLink?: string;
 
   constructor(
     private route: ActivatedRoute,
     private eventService: EventService,
+    private userService: UserService,
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       const idNumber = parseInt(id);
       if (isNaN(idNumber)) return;
-      this.eventService.eventIdGet(idNumber)
-        .subscribe(event => {
-          this.event = event;
-        });
+      const event = await firstValueFrom(this.eventService.eventIdGet(idNumber));
+      
+      this.event = event;
+      this.isOrganizer = 
+        this.userService.user?.role === "Admin"
+        || event.organizerName === this.userService.user?.username;
+      this.reservationLink = `/create/reservation/${event.id}`;
     }
   }
 

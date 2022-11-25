@@ -1,10 +1,18 @@
 <div *ngIf="!!event">
 	<h2>{{ event.title }}</h2>
+	<a>{{ event.organizerName }}</a>
 	<p>{{ event.description }}</p>
 	<div>
 		<span>{{ event.start }}</span> -
 		<span>{{ event.end }}</span>
 	</div>
 
-	<button type="button" (click)="delete()">Delete</button>
+	<button *ngIf="isOrganizer" type="button" (click)="delete()">Delete</button>
+	<button *ngIf="isOrganizer" type="button" [routerLink]="reservationLink">Make reservation</button>
+
+	<ul>
+		<li *ngFor="let reservation of event.reservations">
+			{{ reservation.name }}
+		</li>
+	</ul>
 </div>

@@ -1,0 +1,31 @@
+<h1>Reservation for ...</h1>
+
+<div *ngIf="reservableRooms == undefined">Loading...</div>
+<div *ngIf="!foundRooms">
+	No suitable rooms found.
+</div>
+<ng-container *ngIf="foundRooms">
+	<div *ngIf="foundRooms">
+		<h2>Rooms</h2>
+		<input [formControl]="search" placeholder="Search">
+		<ul>
+			<li *ngFor="let room of reservableRooms">
+				<div class="flexing">
+					<h2>{{room.name}}</h2>
+					<span class="keyword" *ngFor="let keyw of room.keywords">{{keyw}}</span>
+				</div>
+				<div class="row-center">
+					<label for="cb{{room.name!}}">Reserve</label>
+					<input
+						id="cb{{room.name!}}"
+						type="checkbox"
+						[checked]="toReserve[room.name!]"
+						(change)="onReserveChanged(room, $event)">
+				</div>
+			</li>
+		</ul>
+		<div>
+			<button (click)="reserve()">Reserve</button>
+		</div>
+	</div>
+</ng-container>

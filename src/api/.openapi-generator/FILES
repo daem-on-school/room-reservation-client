@@ -17,6 +17,7 @@ model/models.ts
 model/problemDetails.ts
 model/registerDTO.ts
 model/roomDTO.ts
+model/signInResult.ts
 model/timeSpanDTO.ts
 param.ts
 variables.ts

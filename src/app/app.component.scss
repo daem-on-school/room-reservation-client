@@ -9,4 +9,21 @@
 		width: 1000px;
 		margin: 0 auto;
 	}
+
+	.links {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		gap: 1em;
+		
+		a {
+			white-space: nowrap;
+		}
+
+		button {
+			font-size: initial;
+			padding: 1px 10px;
+		}
+	}
 }

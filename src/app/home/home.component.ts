@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CalendarEvent } from 'angular-calendar';
 import { firstValueFrom } from 'rxjs';
 import { EventService, EventSummaryDTO } from '../../api';
-import { CalendarEvent } from 'angular-calendar';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { CalendarEvent } from 'angular-calendar';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-	constructor(private eventService: EventService) {}
+	constructor(private eventService: EventService, private router: Router) {}
 
 	title = 'room-reservation';
 	today = new Date();
@@ -34,6 +35,6 @@ export class HomeComponent implements OnInit {
         event: CalendarEvent;
         sourceEvent: MouseEvent | KeyboardEvent;
     }) {
-		window.location.href = `/event/${$ev.event.id}`;
+		this.router.navigate([`/event/${$ev.event.id}`]);
 	}
 }

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EventCreationDTO, EventService } from 'src/api';
 import { parse, format, formatISO, isBefore } from 'date-fns';
 import { firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 const timeFormat = 'HH:mm:ss';
 const dateFormat = 'yyyy-MM-dd';
@@ -28,7 +29,7 @@ export class CreateEventComponent implements OnInit {
     public: new FormControl(true),
   });
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -51,6 +52,7 @@ export class CreateEventComponent implements OnInit {
       description: source.description!,
       start: formatISO(start),
       end: formatISO(end),
+      isPublic: source.public!,
     }
   }
 
@@ -60,7 +62,7 @@ export class CreateEventComponent implements OnInit {
     );
 
     if (resp.status === 201) {
-      window.location.href = resp.headers.get('location')!;
+      this.router.navigate([`/event/${resp.body!.id}`]);
     }
   }
 }

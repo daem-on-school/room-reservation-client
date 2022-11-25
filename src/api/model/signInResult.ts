@@ -9,16 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { RoomDTO } from './roomDTO';
 
 
-export interface EventWithReservationDTO { 
-    id?: number;
-    title?: string;
-    description?: string;
-    organizerName?: string;
-    start?: string;
-    end?: string;
-    reservations?: Array<RoomDTO>;
+export interface SignInResult { 
+    readonly succeeded?: boolean;
+    readonly isLockedOut?: boolean;
+    readonly isNotAllowed?: boolean;
+    readonly requiresTwoFactor?: boolean;
 }
 

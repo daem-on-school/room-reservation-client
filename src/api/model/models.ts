@@ -5,4 +5,5 @@ export * from './loginDTO';
 export * from './problemDetails';
 export * from './registerDTO';
 export * from './roomDTO';
+export * from './signInResult';
 export * from './timeSpanDTO';

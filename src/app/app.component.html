@@ -1,8 +1,16 @@
 <div class="app-main">
 	<nav>
 		<h1>RoomReservation</h1>
-		<a routerLink="/home">Home</a>
-		<a routerLink="/login">Login</a>
+		<div class="links">
+			<a routerLink="/home">Home</a>
+			<ng-container *ngIf="loggedIn else notLoggedIn">
+				<a routerLink="/create/event">Add Event</a>
+				<button (click)="logout()" [title]="userText">Logout</button>
+			</ng-container>
+			<ng-template #notLoggedIn>
+				<a routerLink="/login">Login</a>
+			</ng-template>
+		</div>
 	</nav>
 	
 	<router-outlet></router-outlet>
