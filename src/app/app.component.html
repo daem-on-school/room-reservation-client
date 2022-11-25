@@ -1,8 +1,10 @@
 <div class="app-main">
 	<nav>
 		<div class="links">
-			<h1>RoomReservation</h1>
-			<a routerLink="/home">Home</a>
+			<h1><a routerLink="/home">
+				<img src="/assets/meeting_room.svg">
+				RoomReservation
+			</a></h1>
 			<a routerLink="/rooms">Rooms List</a>
 			<ng-container *ngIf="isLoggedIn else notLoggedIn">
 				<a routerLink="/create/event">Add Event</a>
