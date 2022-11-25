@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { EventSummaryDTO, RoomService } from 'src/api';
 import { formatDate } from '../event/event.component';
 import { UserService } from '../user.service';
+import { CalendarEvent } from 'angular-calendar';
 
 @Component({
   selector: 'app-room',
@@ -14,6 +15,7 @@ export class RoomComponent implements OnInit {
 
   name?: string;
   events: EventSummaryDTO[] = [];
+  calendarEvents: CalendarEvent[] = [];
 
   constructor(
     private roomService: RoomService,
@@ -33,6 +35,7 @@ export class RoomComponent implements OnInit {
   async load(name: string) {
     this.events = await firstValueFrom(this.roomService.roomNameEventsGet(name));
     this.name = name;
+    this.calendarEvents;
   }
 
   async delete() {

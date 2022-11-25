@@ -1,6 +1,1 @@
-<mwl-calendar-month-view
-	*ngIf="events.length > 0"
-	[viewDate]="today"
-	[events]="events"
-	(eventClicked)="onEventClicked($event)">
-</mwl-calendar-month-view>
+<app-calendar [events]="events"></app-calendar>

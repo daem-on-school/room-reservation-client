@@ -19,6 +19,7 @@ import { ReservationComponent } from './create/reservation/reservation.component
 import { CreateRoomComponent } from './create/room/room.component';
 import { ListRoomsComponent } from './list/rooms/rooms.component';
 import { RoomComponent } from './room/room.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 export function apiConfigFactory (): Configuration {
@@ -39,6 +40,7 @@ export function apiConfigFactory (): Configuration {
     CreateRoomComponent,
     ListRoomsComponent,
     RoomComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,
