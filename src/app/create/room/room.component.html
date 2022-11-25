@@ -1,0 +1,16 @@
+<form>
+	<div class="field">
+		<label for="Name">Name</label>
+		<input type="text" [formControl]="name" id="Name" placeholder="Name">
+	</div>
+	<div class="field keywords">
+		<label>Keywords</label>
+		<div *ngFor="let control of keywords.controls; let i = index;">
+			<input [formControl]="control" placeholder="Keyword">
+			<button type="button" (click)="keywords.removeAt(i)">⨉</button>
+		</div>
+		<button type="button" (click)="addKeyword()">Add keyword</button>
+	</div>
+
+	<button type="button" [disabled]="name.invalid" (click)="createRoom()">Create</button>
+</form>

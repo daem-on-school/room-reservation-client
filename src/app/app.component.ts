@@ -9,7 +9,8 @@ import { UserService } from './user.service';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-	get loggedIn() { return this.userService.isLoggedIn; }
+	get isLoggedIn() { return this.userService.isLoggedIn; }
+	get isAdmin() { return this.userService.user?.role === "Admin"; }
 	get userText(): string | undefined { 
 		const user = this.userService.user;
 		if (!user) return undefined;

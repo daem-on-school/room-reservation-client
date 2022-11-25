@@ -3,8 +3,12 @@
 		<h1>RoomReservation</h1>
 		<div class="links">
 			<a routerLink="/home">Home</a>
-			<ng-container *ngIf="loggedIn else notLoggedIn">
+			<ng-container *ngIf="isLoggedIn else notLoggedIn">
 				<a routerLink="/create/event">Add Event</a>
+				<ng-container *ngIf="isAdmin">
+					<a routerLink="/create/room">Add Room</a>
+				</ng-container>
+
 				<button (click)="logout()" [title]="userText">Logout</button>
 			</ng-container>
 			<ng-template #notLoggedIn>

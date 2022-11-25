@@ -47,3 +47,16 @@ button {
 		background-color: rgb(114, 105, 189);
 	}
 }
+
+form {
+	display: flex;
+	flex-direction: column;
+
+	.field {
+		margin-bottom: 1rem;
+		
+		input, textarea {
+			display: block;
+		}
+	}
+}
