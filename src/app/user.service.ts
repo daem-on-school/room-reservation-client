@@ -32,6 +32,10 @@ export class UserService {
     return this.currentUser;
   }
 
+  public get isAdmin(): boolean {
+    return this.currentUser?.role === 'Admin';
+  }
+
   public set user(user: User | null) {
     this.currentUser = user;
     this.saveUser();

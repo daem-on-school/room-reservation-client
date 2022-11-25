@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { RoomService } from 'src/api';
 
 @Component({
@@ -10,7 +10,7 @@ import { RoomService } from 'src/api';
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.scss']
 })
-export class RoomComponent implements OnInit {
+export class CreateRoomComponent implements OnInit {
 
   keywords = new FormArray<FormControl<string | null>>([]);
   name = new FormControl('', Validators.required);
@@ -27,13 +27,13 @@ export class RoomComponent implements OnInit {
   async createRoom() {
     try {
       const keywords = this.keywords.value.filter(x => x !== null) as string[];
-      const resp = await lastValueFrom(this.roomService.roomPost({
+      const resp = await firstValueFrom(this.roomService.roomPost({
         name: this.name.value!,
         keywords,
       }, 'response'));
   
       if (resp.ok) {
-        this.router.navigate(['/']);
+        this.router.navigate(['/rooms']);
       }
     } catch (e) {
       if (e instanceof HttpErrorResponse) {

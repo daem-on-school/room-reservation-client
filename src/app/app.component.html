@@ -3,9 +3,10 @@
 		<h1>RoomReservation</h1>
 		<div class="links">
 			<a routerLink="/home">Home</a>
+			<a routerLink="/rooms">Rooms List</a>
 			<ng-container *ngIf="isLoggedIn else notLoggedIn">
 				<a routerLink="/create/event">Add Event</a>
-				<ng-container *ngIf="isAdmin">
+				<ng-container *ngIf="userService.isAdmin">
 					<a routerLink="/create/room">Add Room</a>
 				</ng-container>
 

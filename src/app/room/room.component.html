@@ -1,0 +1,16 @@
+<ng-container *ngIf="!!name">
+	<div class="row-center">
+		<h1 class="flexing">{{name}}</h1>
+		<button type="button" (click)="delete()" *ngIf="userService.isAdmin">Delete</button>
+	</div>
+	<div *ngFor="let event of events">
+		<div class="event">
+			<h2><a [routerLink]="['/event', event.id]">{{ event.title }}</a></h2>
+			<div class="dates">
+				<div>{{ formatDate(event.start) }}</div>
+				<span> - </span>
+				<div>{{ formatDate(event.end) }}</div>
+			</div>
+		</div>
+	</div>
+</ng-container>

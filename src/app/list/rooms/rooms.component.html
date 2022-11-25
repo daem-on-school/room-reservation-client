@@ -1,0 +1,9 @@
+<ul>
+	<li *ngFor="let room of rooms">
+		<div class="flexing">
+			<h2><a [routerLink]="['/room', room.name]">{{room.name}}</a></h2>
+			<span class="keyword" *ngFor="let keyw of room.keywords">{{keyw}}</span>
+		</div>
+		<button *ngIf="userService.isAdmin" (click)="deleteRoom(room.name!)">Delete</button>
+	</li>
+</ul>

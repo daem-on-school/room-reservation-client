@@ -26,7 +26,9 @@
 		<label>Reservations</label>
 		<ul>
 			<li *ngFor="let reservation of event.reservations">
-				<h2 class="flexing">{{ reservation.name }}</h2>
+				<h2 class="flexing">
+					<a [routerLink]="['/room', reservation.name]">{{ reservation.name }}</a>
+				</h2>
 				<div class="row-center" *ngIf="isOrganizer">
 					<button (click)="cancelReservation(reservation)">Cancel</button>
 				</div>

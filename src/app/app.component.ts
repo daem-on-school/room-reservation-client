@@ -10,7 +10,6 @@ import { UserService } from './user.service';
 })
 export class AppComponent {
 	get isLoggedIn() { return this.userService.isLoggedIn; }
-	get isAdmin() { return this.userService.user?.role === "Admin"; }
 	get userText(): string | undefined { 
 		const user = this.userService.user;
 		if (!user) return undefined;

@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { EventService, EventWithReservationDTO, RoomDTO } from 'src/api';
 import { UserService } from '../user.service';
+
+export function formatDate(date?: string) {
+  if (!date) return "";
+  return new Date(date).toLocaleString();
+}
 
 @Component({
   selector: 'app-event',
@@ -18,7 +23,10 @@ export class EventComponent implements OnInit {
     private route: ActivatedRoute,
     private eventService: EventService,
     private userService: UserService,
+    private router: Router,
   ) { }
+
+  formatDate = formatDate;
 
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id');
@@ -38,19 +46,16 @@ export class EventComponent implements OnInit {
 
   async delete(): Promise<void> {
     if (this.event) {
+      if (!confirm("Are you sure you want to delete this event?")) return;
+
       const resp = await firstValueFrom(
         this.eventService.eventIdDelete(this.event.id!, "response")
       );
 
       if (resp.status === 204) {
-        window.location.href = "/home";
+        this.router.navigate(["/"]);
       }
     }
-  }
-
-  formatDate(date?: string) {
-    if (!date) return "";
-    return new Date(date).toLocaleString();
   }
 
   async cancelReservation(reservation: RoomDTO): Promise<void> {

@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateEventComponent } from './create/event/event.component';
 import { ReservationComponent } from './create/reservation/reservation.component';
-import { RoomComponent } from './create/room/room.component';
+import { CreateRoomComponent } from './create/room/room.component';
 import { EventComponent } from './event/event.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { ListRoomsComponent } from './list/rooms/rooms.component';
+import { RoomComponent } from './room/room.component';
 
 const routes: Routes = [
   {
@@ -35,6 +37,14 @@ const routes: Routes = [
   },
   {
     path: 'create/room',
+    component: CreateRoomComponent
+  },
+  {
+    path: 'rooms',
+    component: ListRoomsComponent
+  },
+  {
+    path: 'room/:name',
     component: RoomComponent
   }
 ];

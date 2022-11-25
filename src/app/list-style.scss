@@ -14,14 +14,14 @@ li {
 	h2 {
 		margin: 0;
 	}
-
-	.flexing {
-		flex: 1;
-	}
 }
 
 li, .row-center {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+}
+
+.flexing {
+	flex: 1;
 }

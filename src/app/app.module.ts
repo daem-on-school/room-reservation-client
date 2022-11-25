@@ -16,7 +16,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { AuthInterceptor, UserService } from './user.service';
 import { ReservationComponent } from './create/reservation/reservation.component';
-import { RoomComponent } from './create/room/room.component';
+import { CreateRoomComponent } from './create/room/room.component';
+import { ListRoomsComponent } from './list/rooms/rooms.component';
+import { RoomComponent } from './room/room.component';
 
 
 export function apiConfigFactory (): Configuration {
@@ -34,6 +36,8 @@ export function apiConfigFactory (): Configuration {
     EventComponent,
     CreateEventComponent,
     ReservationComponent,
+    CreateRoomComponent,
+    ListRoomsComponent,
     RoomComponent,
   ],
   imports: [
