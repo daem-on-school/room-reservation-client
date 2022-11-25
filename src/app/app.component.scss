@@ -16,6 +16,7 @@
 		flex-wrap: nowrap;
 		overflow-x: auto;
 		gap: 1em;
+		padding: 1px;
 		
 		a {
 			white-space: nowrap;
@@ -25,5 +26,9 @@
 			font-size: initial;
 			padding: 1px 10px;
 		}
+	}
+
+	nav {
+		margin-bottom: 1em;
 	}
 }

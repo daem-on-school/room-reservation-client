@@ -1,18 +1,36 @@
-<div *ngIf="!!event">
+<div class="event-details" *ngIf="!!event">
+	<label>Title</label>
 	<h2>{{ event.title }}</h2>
+
+	<label>Organiser</label>
 	<a>{{ event.organizerName }}</a>
+
+	<label>Description</label>
 	<p>{{ event.description }}</p>
-	<div>
-		<span>{{ event.start }}</span> -
-		<span>{{ event.end }}</span>
+
+	<label>Time</label>
+	<div class="dates">
+		<div>{{ formatDate(event.start) }}</div>
+		<div>{{ formatDate(event.end) }}</div>
 	</div>
 
-	<button *ngIf="isOrganizer" type="button" (click)="delete()">Delete</button>
-	<button *ngIf="isOrganizer" type="button" [routerLink]="reservationLink">Make reservation</button>
+	<ng-container *ngIf="isOrganizer">
+		<label>Actions</label>
+		<div class="actions">
+			<button type="button" (click)="delete()">Delete</button>
+			<button type="button" [routerLink]="reservationLink">Make reservation</button>
+		</div>
+	</ng-container>
 
-	<ul>
-		<li *ngFor="let reservation of event.reservations">
-			{{ reservation.name }}
-		</li>
-	</ul>
+	<ng-container *ngIf="(event.reservations?.length ?? 0) > 0">
+		<label>Reservations</label>
+		<ul>
+			<li *ngFor="let reservation of event.reservations">
+				<h2 class="flexing">{{ reservation.name }}</h2>
+				<div class="row-center" *ngIf="isOrganizer">
+					<button (click)="cancelReservation(reservation)">Cancel</button>
+				</div>
+			</li>
+		</ul>
+	</ng-container>
 </div>

@@ -13,6 +13,13 @@ a {
 	}
 }
 
+a, button {
+	&:focus {
+		outline: rgb(212, 50, 0) auto 1px;
+		outline-offset: 0;
+	}
+}
+
 ::selection {
 	background-color: rgb(21, 10, 119);
 	color: white;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { EventService, EventWithReservationDTO } from 'src/api';
+import { EventService, EventWithReservationDTO, RoomDTO } from 'src/api';
 import { UserService } from '../user.service';
 
 @Component({
@@ -22,17 +22,18 @@ export class EventComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      const idNumber = parseInt(id);
-      if (isNaN(idNumber)) return;
-      const event = await firstValueFrom(this.eventService.eventIdGet(idNumber));
-      
-      this.event = event;
-      this.isOrganizer = 
-        this.userService.user?.role === "Admin"
-        || event.organizerName === this.userService.user?.username;
-      this.reservationLink = `/create/reservation/${event.id}`;
-    }
+    if (id) this.load(parseInt(id));
+  }
+
+  async load(id: number) {
+    if (isNaN(id)) return;
+    const event = await firstValueFrom(this.eventService.eventIdGet(id));
+    
+    this.event = event;
+    this.isOrganizer = 
+      this.userService.user?.role === "Admin"
+      || event.organizerName === this.userService.user?.username;
+    this.reservationLink = `/create/reservation/${event.id}`;
   }
 
   async delete(): Promise<void> {
@@ -43,6 +44,26 @@ export class EventComponent implements OnInit {
 
       if (resp.status === 204) {
         window.location.href = "/home";
+      }
+    }
+  }
+
+  formatDate(date?: string) {
+    if (!date) return "";
+    return new Date(date).toLocaleString();
+  }
+
+  async cancelReservation(reservation: RoomDTO): Promise<void> {
+    if (this.event) {
+      const resp = await firstValueFrom(
+        this.eventService.eventIdReservationsDelete(
+          this.event.id!, [reservation.name!],
+          "response"
+        )
+      );
+
+      if (resp.status === 204) {
+        this.load(this.event.id!);
       }
     }
   }
