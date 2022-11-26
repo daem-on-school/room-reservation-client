@@ -1,6 +1,7 @@
 <ng-container *ngIf="!!name">
-	<div class="row-center">
+	<div class="row-center with-gap">
 		<h1 class="flexing">{{name}}</h1>
+		<button type="button" [routerLink]="['/room', name, 'copy']" *ngIf="userService.isAdmin">Copy</button>
 		<button type="button" (click)="delete()" *ngIf="userService.isAdmin">Delete</button>
 	</div>
 	<app-calendar [events]="events"></app-calendar>

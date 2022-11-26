@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { RoomService } from 'src/api';
+import { RoomDTO, RoomService } from 'src/api';
 
 @Component({
   selector: 'app-room',
@@ -14,10 +14,17 @@ export class CreateRoomComponent implements OnInit {
 
   keywords = new FormArray<FormControl<string | null>>([]);
   name = new FormControl('', Validators.required);
+  copying: string | null = null;
 
-  constructor(readonly roomService: RoomService, private router: Router) { }
+  constructor(
+    readonly roomService: RoomService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
+    const name = this.route.snapshot.paramMap.get('name');
+    if (name) this.copying = name;
   }
 
   addKeyword() {
@@ -25,15 +32,20 @@ export class CreateRoomComponent implements OnInit {
   }
 
   async createRoom() {
+    const isCopying = this.copying !== null;
     try {
       const keywords = this.keywords.value.filter(x => x !== null) as string[];
-      const resp = await firstValueFrom(this.roomService.roomPost({
+
+      const roomData: RoomDTO = {
         name: this.name.value!,
         keywords,
-      }, 'response'));
+      };
+      const resp = isCopying
+      ? await firstValueFrom(this.roomService.roomCopyFromPost(this.copying!, roomData, 'response'))
+      : await firstValueFrom(this.roomService.roomPost(roomData, 'response'));
   
       if (resp.ok) {
-        this.router.navigate(['/rooms']);
+        this.router.navigate(['/room', this.name.value!]);
       }
     } catch (e) {
       if (e instanceof HttpErrorResponse) {
