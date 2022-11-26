@@ -4,6 +4,7 @@ import { EventCreationDTO, EventService } from 'src/api';
 import { parse, format, formatISO, isBefore } from 'date-fns';
 import { firstValueFrom } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const timeFormat = 'HH:mm:ss';
 export const dateFormat = 'yyyy-MM-dd';
@@ -31,7 +32,7 @@ export function convertEventForm(source: EventFormValue): EventCreationDTO {
       parse(source.end!, dateFormat, new Date())
     );
     if (isBefore(end, start)) {
-      throw new Error("End date must be after start date");
+      alert("End date must be after start date");
     }
     return {
       title: source.title!,
@@ -105,13 +106,22 @@ export class CreateEventComponent implements OnInit {
 
   async updateEvent() {
     if (this.editing === null) return;
-    await firstValueFrom(
-      this.eventService.eventIdPut(
-        this.editing,
-        convertEventForm(this.form.value),
-        "response")
-    );
 
-    this.router.navigate([`/event`, this.editing]);
+    try {
+      await firstValueFrom(
+        this.eventService.eventIdPut(
+          this.editing,
+          convertEventForm(this.form.value),
+          "response")
+      );
+      
+      this.router.navigate([`/event`, this.editing]);
+    } catch (e) {
+      if (e instanceof HttpErrorResponse) {
+        if (e.status === 400) {
+          alert(Object.values(e.error).flat().join("; "));
+        }
+      }
+    }
   }
 }
