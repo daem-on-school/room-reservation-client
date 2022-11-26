@@ -38,5 +38,10 @@
 		<input type="checkbox" formControlName="public" id="public">
 	</div>
 
-	<button type="button" [disabled]="form.invalid" (click)="createEvent()">Create</button>
+	<button
+		type="button"
+		[disabled]="form.invalid"
+		(click)="editing !== null ? updateEvent() : createEvent()">
+		{{ editing !== null ? 'Save' : 'Create' }}
+	</button>
 </form>

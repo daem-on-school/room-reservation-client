@@ -20,5 +20,6 @@ export interface EventWithReservationDTO {
     start?: string;
     end?: string;
     reservations?: Array<RoomDTO>;
+    isPublic?: boolean;
 }
 

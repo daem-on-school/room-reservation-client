@@ -3,39 +3,25 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EventCreationDTO, EventService } from 'src/api';
 import { parse, format, formatISO, isBefore } from 'date-fns';
 import { firstValueFrom } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-const timeFormat = 'HH:mm:ss';
-const dateFormat = 'yyyy-MM-dd';
+export const timeFormat = 'HH:mm:ss';
+export const dateFormat = 'yyyy-MM-dd';
 const now = new Date();
 
-const timeValidator = Validators.pattern(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/);
+export const timeValidator = Validators.pattern(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/);
 
-@Component({
-  selector: 'app-create-event',
-  templateUrl: './event.component.html',
-  styleUrls: ['./event.component.scss']
-})
-export class CreateEventComponent implements OnInit {
-  roomList = [];
+export type EventFormValue = Partial<{
+  title: string | null;
+  description: string | null;
+  start: string | null;
+  end: string | null;
+  startTime: string | null;
+  endTime: string | null;
+  public: boolean | null;
+}>;
 
-  form = new FormGroup({
-    title: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
-    start: new FormControl(format(now, dateFormat), Validators.required),
-    end: new FormControl(format(now, dateFormat), Validators.required),
-    startTime: new FormControl(format(now, timeFormat), [Validators.required, timeValidator]),
-    endTime: new FormControl(format(now, timeFormat), [Validators.required, timeValidator]),
-    public: new FormControl(true),
-  });
-
-  constructor(private eventService: EventService, private router: Router) { }
-
-  ngOnInit(): void {
-  }
-
-  convert(): EventCreationDTO {
-    const source = this.form.value;
+export function convertEventForm(source: EventFormValue): EventCreationDTO {
     const start = parse(
       source.startTime!, timeFormat,
       parse(source.start!, dateFormat, new Date())
@@ -56,13 +42,76 @@ export class CreateEventComponent implements OnInit {
     }
   }
 
+@Component({
+  selector: 'app-create-event',
+  templateUrl: './event.component.html',
+  styleUrls: ['./event.component.scss']
+})
+export class CreateEventComponent implements OnInit {
+  roomList = [];
+  editing: number | null = null;
+
+  form = new FormGroup({
+    title: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
+    start: new FormControl(format(now, dateFormat), Validators.required),
+    end: new FormControl(format(now, dateFormat), Validators.required),
+    startTime: new FormControl(format(now, timeFormat), [Validators.required, timeValidator]),
+    endTime: new FormControl(format(now, timeFormat), [Validators.required, timeValidator]),
+    public: new FormControl(true),
+  });
+
+  constructor(
+    private eventService: EventService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.editing = parseInt(id);
+      this.load(this.editing);
+    }
+  }
+
+  async load(id: number) {
+    if (isNaN(id)) return;
+    const event = await firstValueFrom(this.eventService.eventIdGet(id));
+    const start = new Date(event.start!);
+    const end = new Date(event.end!);
+    this.form.patchValue({
+      title: event.title,
+      description: event.description,
+      start: format(start, dateFormat),
+      end: format(end, dateFormat),
+      startTime: format(start, timeFormat),
+      endTime: format(end, timeFormat),
+      public: event.isPublic,
+    });
+  }
+
   async createEvent() {
     const resp = await firstValueFrom(
-      this.eventService.eventPost(this.convert(), "response")
+      this.eventService.eventPost(
+        convertEventForm(this.form.value),
+        "response")
     );
 
     if (resp.status === 201) {
-      this.router.navigate([`/event/${resp.body!.id}`]);
+      this.router.navigate([`/event/`, resp.body.id]);
     }
+  }
+
+  async updateEvent() {
+    if (this.editing === null) return;
+    await firstValueFrom(
+      this.eventService.eventIdPut(
+        this.editing,
+        convertEventForm(this.form.value),
+        "response")
+    );
+
+    this.router.navigate([`/event`, this.editing]);
   }
 }

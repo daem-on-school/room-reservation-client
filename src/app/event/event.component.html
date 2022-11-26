@@ -18,6 +18,7 @@
 		<label>Actions</label>
 		<div class="actions">
 			<button type="button" (click)="delete()">Delete</button>
+			<button type="button" [routerLink]="['/event', event.id, 'edit']">Edit</button>
 			<button type="button" [routerLink]="reservationLink">Make reservation</button>
 		</div>
 	</ng-container>

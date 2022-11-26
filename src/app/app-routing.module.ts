@@ -46,6 +46,10 @@ const routes: Routes = [
   {
     path: 'room/:name',
     component: RoomComponent
+  },
+  {
+    path: 'event/:id/edit',
+    component: CreateEventComponent
   }
 ];
 
