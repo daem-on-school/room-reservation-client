@@ -1,0 +1,13 @@
+<form>
+	<div class="field">
+		<label for="name">Room Name</label>
+		<input type="text" [formControl]="roomName" id="name">
+	</div>
+	<button [disabled]="!roomName.valid" (click)="tryCreateReservation()" type="button">Check</button>
+	<div *ngIf="errors.length > 0" class="results">
+		<h3>Errors</h3>
+		<ul>
+			<li *ngFor="let error of errors">{{error}}</li>
+		</ul>
+	</div>
+</form>

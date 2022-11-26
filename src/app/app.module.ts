@@ -20,6 +20,7 @@ import { CreateRoomComponent } from './create/room/room.component';
 import { ListRoomsComponent } from './list/rooms/rooms.component';
 import { RoomComponent } from './room/room.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { SpecificReservationComponent } from './create/specific-reservation/specific-reservation.component';
 
 
 export function apiConfigFactory (): Configuration {
@@ -41,6 +42,7 @@ export function apiConfigFactory (): Configuration {
     ListRoomsComponent,
     RoomComponent,
     CalendarComponent,
+    SpecificReservationComponent,
   ],
   imports: [
     BrowserModule,

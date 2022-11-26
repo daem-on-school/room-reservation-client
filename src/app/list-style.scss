@@ -16,12 +16,8 @@ li {
 	}
 }
 
-li, .row-center {
+li {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-}
-
-.flexing {
-	flex: 1;
 }

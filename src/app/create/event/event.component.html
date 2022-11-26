@@ -7,31 +7,37 @@
 		<label for="description">Description</label>
 		<textarea formControlName="description" id="description" placeholder="Description"></textarea>
 	</div>
-	<div class="field">
-		<label for="start">Starts on</label>
-		<input type="date" formControlName="start" id="start">
+	<div class="row-center with-gap">
+		<div class="field">
+			<label for="start">Starts on</label>
+			<input type="date" formControlName="start" id="start">
+		</div>
+		<div class="field">
+			<label for="startTime">at</label>
+			<input
+			class="time"
+			type="text"
+			formControlName="startTime"
+			[dropSpecialCharacters]="false"
+			[showMaskTyped]="true"
+			mask="00:00:00">
+		</div>
 	</div>
-	<div class="field">
-		<label for="startTime">at</label>
-		<input
-		type="text"
-		formControlName="startTime"
-		[dropSpecialCharacters]="false"
-		[showMaskTyped]="true"
-		mask="00:00:00">
-	</div>
-	<div class="field">
-		<label for="end">Ends on</label>
-		<input type="date" formControlName="end" id="end">
-	</div>
-	<div class="field">
-		<label for="endTime">at</label>
-		<input
-		type="text"
-		formControlName="endTime"
-		[dropSpecialCharacters]="false"
-		[showMaskTyped]="true"
-		mask="00:00:00">
+	<div class="row-center with-gap">
+		<div class="field">
+			<label for="end">Ends on</label>
+			<input type="date" formControlName="end" id="end">
+		</div>
+		<div class="field">
+			<label for="endTime">at</label>
+			<input
+			class="time"
+			type="text"
+			formControlName="endTime"
+			[dropSpecialCharacters]="false"
+			[showMaskTyped]="true"
+			mask="00:00:00">
+		</div>
 	</div>
 	<div class="field">
 		<label for="public">Make public</label>

@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ListRoomsComponent } from './list/rooms/rooms.component';
 import { RoomComponent } from './room/room.component';
+import { SpecificReservationComponent } from './create/specific-reservation/specific-reservation.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,10 @@ const routes: Routes = [
   {
     path: 'room/:name/copy',
     component: CreateRoomComponent
+  },
+  {
+    path: 'create/specific-reservation/:eventId',
+    component: SpecificReservationComponent
   }
 ];
 

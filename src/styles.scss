@@ -24,3 +24,17 @@ a, button {
 	background-color: rgb(21, 10, 119);
 	color: white;
 }
+
+.row-center.with-gap {
+	gap: 1em;
+}
+
+.row-center {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.flexing {
+	flex: 1;
+}
